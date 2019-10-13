@@ -5,6 +5,8 @@ import io.grpc.ServerBuilder
 import greet.{GreetingServiceGrpc, GreetingServiceImpl}
 import pnd.PrimeNumberDecompositionServiceGrpc
 import pnd.PrimeNumberDecompositionServiceImpl
+import average.AverageServiceGrpc
+import average.AverageServiceImpl
 
 object Server {
   def main(args: Array[String]): Unit = {
@@ -16,6 +18,10 @@ object Server {
       .addService(
         PrimeNumberDecompositionServiceGrpc
           .bindService(PrimeNumberDecompositionServiceImpl, global)
+      )
+      .addService(
+        AverageServiceGrpc
+          .bindService(AverageServiceImpl, global)
       )
       .build()
       .start()

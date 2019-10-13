@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+import "scalapb/scalapb.proto";
+import "pnd.proto";
+
+option (scalapb.options) = {
+    package_name: "average"
+};
+
+// message Number {
+//     int32 number = 1;
+// }
+
+message Double {
+    double number = 1;
+}
+
+service AverageService {
+    rpc Average (stream Number) returns (Double);
+}
