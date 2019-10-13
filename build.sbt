@@ -10,9 +10,12 @@ lazy val root = (project in file("."))
   .settings(
     name := "learn_grpc_scala",
     libraryDependencies ++= Seq(
+      // scalapb
       "com.thesamet.scalapb" %% "scalapb-runtime" % scalapbVersion % "protobuf",
+      // grpc
       "io.grpc" % "grpc-netty" % scalapb.compiler.Version.grpcJavaVersion,
       "com.thesamet.scalapb" %% "scalapb-runtime-grpc" % scalapb.compiler.Version.scalapbVersion,
+      // scalatest
       scalaTest % Test
     )
   )

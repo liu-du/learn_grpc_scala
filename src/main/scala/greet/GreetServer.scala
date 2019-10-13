@@ -1,9 +1,9 @@
-package example
-import scala.concurrent.ExecutionContext.global
-import io.grpc.{ServerBuilder, Server}
-import greet.GreetingServiceGrpc
+package greet
 
-object DummyServer {
+import scala.concurrent.ExecutionContext.global
+import io.grpc.ServerBuilder
+
+object GreetServer {
   def main(args: Array[String]): Unit = {
     val server = ServerBuilder
       .forPort(50051)
