@@ -39,4 +39,28 @@ object GreetingServiceImpl extends GreetingServiceGrpc.GreetingService {
 
     requestObserver
   }
+
+  def greetEveryOne(responseObserver: StreamObserver[GreetingResponse]): StreamObserver[GreetingRequest] = {
+    val requestObserver = new StreamObserver[GreetingRequest] {
+      def onNext(value: GreetingRequest): Unit = {
+        println("receiving a streaming request")
+        println("sending   a streaming response")
+        value.greeting.map {
+            case Greeting(firstName, lastName) => GreetingResponse(s"Hello $firstName $lastName")
+          }.foreach {
+            responseObserver.onNext(_)
+          }
+      }
+      def onError(t: Throwable): Unit = {}
+      def onCompleted(): Unit = {
+        println("client notifies completion")
+        println("sending server completion to client")
+        responseObserver.onCompleted()
+      }
+    } 
+
+    requestObserver
+  }
+
+
 }

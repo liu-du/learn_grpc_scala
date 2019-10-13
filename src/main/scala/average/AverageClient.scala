@@ -9,6 +9,7 @@ object AverageClient extends Channel {
   val client = AverageServiceGrpc.stub(channel)
   def main(args: Array[String]): Unit = {
     val latch = new CountDownLatch(1)
+
     val responseObserver = new StreamObserver[Double] {
       def onNext(value: Double): Unit = {
         println("received response from server:")
@@ -17,6 +18,7 @@ object AverageClient extends Channel {
       def onError(t: Throwable): Unit = ???
       def onCompleted(): Unit = {
         println("server notifies completion")
+        latch.countDown()
       }
     }
     val requestObserver = client.average(responseObserver)

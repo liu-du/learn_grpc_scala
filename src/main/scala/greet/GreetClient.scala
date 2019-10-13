@@ -45,9 +45,41 @@ object GreetClient extends Channel {
     println("streaming #3")
     requestObserver.onNext(GreetingRequest(Some(Greeting("Kobe", "Bryant"))))
 
+    Thread.sleep(1000L)
     println("I (client) am done streaming")
     requestObserver.onCompleted()
 
     latch.await()
+
+    val latch2 = new CountDownLatch(1)
+    val responseObserver2 = new StreamObserver[GreetingResponse] {
+      def onNext(value: GreetingResponse): Unit = {
+        println(value.result)
+      }
+      def onError(t: Throwable): Unit = ???
+      def onCompleted(): Unit = {
+        println("server notifies completion")
+        latch2.countDown()
+      }
+    }
+
+    val requestObserver2 = client.greetEveryOne(responseObserver2)
+
+    Thread.sleep(1000L)
+    println("streaming #1")
+    requestObserver2.onNext(GreetingRequest(Some(Greeting("Dwyane", "Wade"))))
+
+    Thread.sleep(1000L)
+    println("streaming #2")
+    requestObserver2.onNext(GreetingRequest(Some(Greeting("Lebron", "James"))))
+
+    Thread.sleep(1000L)
+    println("streaming #3")
+    requestObserver2.onNext(GreetingRequest(Some(Greeting("Kobe", "Bryant"))))
+
+    Thread.sleep(1000L)
+    println("I (client) am done streaming")
+    requestObserver2.onCompleted()
+
   }
 }
