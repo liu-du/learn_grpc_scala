@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+import "scalapb/scalapb.proto";
+
+option (scalapb.options) = {
+    package_name: "pnd"
+};
+
+message Number {
+    int64 number = 1;
+}
+
+service PrimeNumberDecompositionService {
+    rpc PrimeNumberDecomposition (Number) returns (stream Number) {};
+}

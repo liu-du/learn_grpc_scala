@@ -1,14 +1,21 @@
-package greet
+package common
 
 import scala.concurrent.ExecutionContext.global
 import io.grpc.ServerBuilder
+import greet.{GreetingServiceGrpc, GreetingServiceImpl}
+import pnd.PrimeNumberDecompositionServiceGrpc
+import pnd.PrimeNumberDecompositionServiceImpl
 
-object GreetServer {
+object Server {
   def main(args: Array[String]): Unit = {
     val server = ServerBuilder
       .forPort(50051)
       .addService(
         GreetingServiceGrpc.bindService(GreetingServiceImpl, global)
+      )
+      .addService(
+        PrimeNumberDecompositionServiceGrpc
+          .bindService(PrimeNumberDecompositionServiceImpl, global)
       )
       .build()
       .start()

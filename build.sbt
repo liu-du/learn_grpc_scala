@@ -1,7 +1,7 @@
 import Dependencies._
 import scalapb.compiler.Version.scalapbVersion
 
-ThisBuild / scalaVersion := "2.12.10"
+ThisBuild / scalaVersion := "2.13.1"
 ThisBuild / version := "0.1.0-SNAPSHOT"
 ThisBuild / organization := "com.example"
 ThisBuild / organizationName := "example"
