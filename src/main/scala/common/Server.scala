@@ -7,6 +7,7 @@ import pnd.PrimeNumberDecompositionServiceGrpc
 import pnd.PrimeNumberDecompositionServiceImpl
 import average.AverageServiceGrpc
 import average.AverageServiceImpl
+import java.io.File
 
 object Server {
   def main(args: Array[String]): Unit = {
@@ -22,6 +23,10 @@ object Server {
       .addService(
         AverageServiceGrpc
           .bindService(AverageServiceImpl, global)
+      )
+      .useTransportSecurity(
+        new File("ssl/server.crt"),
+        new File("ssl/server.pem")
       )
       .build()
       .start()

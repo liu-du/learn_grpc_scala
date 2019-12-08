@@ -13,7 +13,7 @@ lazy val root = (project in file("."))
       // scalapb
       "com.thesamet.scalapb" %% "scalapb-runtime" % scalapbVersion % "protobuf",
       // grpc
-      "io.grpc" % "grpc-netty" % scalapb.compiler.Version.grpcJavaVersion,
+      "io.grpc" % "grpc-netty-shaded" % scalapb.compiler.Version.grpcJavaVersion, // include SSL libraries
       "com.thesamet.scalapb" %% "scalapb-runtime-grpc" % scalapb.compiler.Version.scalapbVersion,
       // scalatest
       scalaTest % Test
